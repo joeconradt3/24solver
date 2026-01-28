@@ -1,6 +1,4 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import { Button, createTheme, CssBaseline, ThemeProvider } from '@mui/material'
 import cardSvg from './card.svg'
