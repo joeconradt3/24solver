@@ -103,4 +103,9 @@
     stroke="#c21f3a"
     stroke-width="10"/>
 
+    <rect
+    x="385" y="385"
+    width="230" height="230"
+    class="red"/>
+
 </svg>

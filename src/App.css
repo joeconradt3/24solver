@@ -1,7 +1,6 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
   width: 100%;
   display: flex;
@@ -60,56 +59,146 @@
   height: 100%;
 }
 
+.card-flip {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  perspective: 1200px;
+}
+
+.card-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s ease;
+}
+
+.card-flip.is-flipped .card-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+
+.card-face img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.card-front .input {
+  z-index: 1;
+}
+
+.card-back {
+  background: #ffffff;
+  border-radius: 60px;
+  box-shadow: inset 0 0 0 6px #0c3b78;
+  transform: rotateY(180deg);
+}
+
 .input {
   position: absolute;
   font-size: 5rem;
   background: transparent;
   border: 4px dotted #333333;
   color: black;
-  width: 10%;
+  width: 14%;
   font-family: "Momo Signature", cursive;
   font-weight: 400;
   font-style: normal;
   text-align: center;
 }
 
+.input-static {
+  border: none;
+}
+
 .top {
-  top: 25%;
+  top: 15%;
   left: 50%;
   transform: translateX(-50%);
   
 }
 
 .bottom {
-  bottom: 25%;
+  bottom: 15%;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .left {
-  left: 25%;
+  left: 15%;
   top: 50%;
   transform: translateY(-50%);
 }
 
 .right {
-  right: 25%;
+  right: 15%;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.solve-button {
+.card-button {
   position: absolute !important;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.solve-button {
+  top: 40%;
+}
+.reset-button {
+  top: 48%;
+}
+.back-button {
+  top: 40%;
+}
+
+.solution {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(0.4rem, 1.8vw, 1.2rem);
 }
 
 @media (max-width: 768px) {
   .input {
-    font-size: 4rem;
+    font-size: 3rem;
+  }
+  .card-button {
+    padding: 4px 8px !important;
+    font-size: 1rem !important;
   }
 }
 
 @media (max-width: 480px) {
   .input {
-    font-size: 3.2rem;
+    font-size: 2rem;
+  }
+  .card-button {
+    padding: 2px 4px !important;
+    font-size: 0.75rem !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .input {
+    font-size: 1.5rem;
+  }
+  .card-button {
+    padding: 2px 4px !important;
+    font-size: 0.5rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-flip-inner {
+    transition: none;
   }
 }

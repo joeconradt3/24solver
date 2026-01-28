@@ -1,9 +1,10 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { Button, createTheme, CssBaseline, ThemeProvider } from '@mui/material'
 import cardSvg from './card.svg'
+import cardBackSvg from './card-back.svg'
 
 const darkTheme = createTheme({
   palette: {
@@ -70,10 +71,15 @@ function App() {
   const [number2, setNumber2] = useState<number>()
   const [number3, setNumber3] = useState<number>()
   const [number4, setNumber4] = useState<number>()
-  const [solution, setSolution] = useState<string | null | false>()
+  const [solution, setSolution] = useState<string | null | false>(null)
+  const [isFlipped, setIsFlipped] = useState(false)
 
   const isValidNumbers = useMemo(() => {
     return (number1 ?? 0) > 0 && (number2 ?? 0) > 0 && (number3 ?? 0) > 0 && (number4 ?? 0) > 0
+  }, [number1, number2, number3, number4])
+
+  useEffect(() => {
+    setIsFlipped(false)
   }, [number1, number2, number3, number4])
 
   const handleClick = useCallback(() => {
@@ -88,8 +94,20 @@ function App() {
     }))
 
     const solution = solve(items, target)
-    setSolution(solution ?? false)
+    setSolution(solution ? solution : false)
+    setIsFlipped(true)
   }, [number1, number2, number3, number4, isValidNumbers])
+
+  const handleBackClick = useCallback(() => {
+    setIsFlipped(false)
+  }, [setIsFlipped])
+
+  const handleReset = useCallback(() => {
+    setNumber1(undefined)
+    setNumber2(undefined)
+    setNumber3(undefined)
+    setNumber4(undefined)
+  }, [setNumber1, setNumber2, setNumber3, setNumber4])
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -103,23 +121,41 @@ function App() {
         </a>
       </div>
       <h1>24 Solver</h1>
-      <p>
-        {solution === false && (
-          "Invalid numbers - no solution found 😔"
-        )}
-        {!!solution && (
-          solution + " = 24"
-        )}
-      </p>
       <div className="card-wrapper">
-        <input type="text" className="input top" value={number1} onChange={(e) => setNumber1(e.target.value ? parseInt(e.target.value) : undefined)} />
-        <input type="text" className="input left" value={number2} onChange={(e) => setNumber2(e.target.value ? parseInt(e.target.value) : undefined)} />
         <div className="card">
-          <img src={cardSvg}/>
+          <div className={`card-flip ${isFlipped ? 'is-flipped' : ''}`}>
+            <div className="card-flip-inner">
+              <div className="card-face card-front">
+                <img src={cardSvg} alt="Card front" />
+                <input type="text" className="input top" value={number1} onChange={(e) => setNumber1(e.target.value ? parseInt(e.target.value) : undefined)} />
+                <input type="text" className="input left" value={number2} onChange={(e) => setNumber2(e.target.value ? parseInt(e.target.value) : undefined)} />
+                <input type="text" className="input right" value={number3} onChange={(e) => setNumber3(e.target.value ? parseInt(e.target.value) : undefined)} />
+                <input type="text" className="input bottom" value={number4} onChange={(e) => setNumber4(e.target.value ? parseInt(e.target.value) : undefined)} />
+                <Button variant="contained" size="large" color="error" className="card-button solve-button" onClick={() => handleClick()} disabled={!isValidNumbers}>Solve!</Button>
+                <Button variant="text" size="large" className="card-button reset-button" onClick={() => handleReset()}>Reset</Button>
+              </div>
+              <div className="card-face card-back" aria-hidden="true">
+                <img src={cardBackSvg} alt="Card back" />
+                <div className="solution">
+                  {solution === false && (
+                    <>
+                      <p>Invalid numbers</p>
+                      <p>No solution found 😔</p>
+                    </>
+                  )}
+                  {!!solution && (
+                    solution.slice(1, -1) + " = 24"
+                  )}
+                </div>
+                <input type="text" className="input input-static top" value={number1} disabled={true} />
+                <input type="text" className="input input-static left" value={number2} disabled={true} />
+                <input type="text" className="input input-static right" value={number3} disabled={true} />
+                <input type="text" className="input input-static bottom" value={number4} disabled={true} />
+                <Button variant="contained" size="large" color="warning" className="card-button back-button" onClick={() => handleBackClick()} disabled={!isValidNumbers}>Back</Button>
+              </div>
+            </div>
+          </div>
         </div>
-        <input type="text" className="input right" value={number3} onChange={(e) => setNumber3(e.target.value ? parseInt(e.target.value) : undefined)} />
-        <input type="text" className="input bottom" value={number4} onChange={(e) => setNumber4(e.target.value ? parseInt(e.target.value) : undefined)} />
-        <Button variant="contained" size="large" color="error" className="solve-button" onClick={() => handleClick()} disabled={!isValidNumbers}>Solve!</Button>
       </div>
 
     </ThemeProvider>
