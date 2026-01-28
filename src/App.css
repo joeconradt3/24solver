@@ -167,6 +167,14 @@
   font-size: clamp(0.4rem, 1.8vw, 1.2rem);
 }
 
+.title {
+  position: absolute;
+  left: 0%;
+  transform: rotate(315deg);
+  top: 6%;
+  font-size: clamp(1rem, 4vw, 3rem);
+}
+
 @media (max-width: 768px) {
   .input {
     font-size: 3rem;

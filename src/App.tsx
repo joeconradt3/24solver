@@ -112,29 +112,22 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>24 Solver</h1>
       <div className="card-wrapper">
         <div className="card">
           <div className={`card-flip ${isFlipped ? 'is-flipped' : ''}`}>
             <div className="card-flip-inner">
               <div className="card-face card-front">
+                <h1 className="title">24 Solver</h1>
                 <img src={cardSvg} alt="Card front" />
-                <input type="text" className="input top" value={number1} onChange={(e) => setNumber1(e.target.value ? parseInt(e.target.value) : undefined)} />
-                <input type="text" className="input left" value={number2} onChange={(e) => setNumber2(e.target.value ? parseInt(e.target.value) : undefined)} />
-                <input type="text" className="input right" value={number3} onChange={(e) => setNumber3(e.target.value ? parseInt(e.target.value) : undefined)} />
-                <input type="text" className="input bottom" value={number4} onChange={(e) => setNumber4(e.target.value ? parseInt(e.target.value) : undefined)} />
+                <input type="text" className="input top" value={number1 ?? ''} onChange={(e) => setNumber1(e.target.value ? parseInt(e.target.value) : undefined)} />
+                <input type="text" className="input left" value={number2 ?? ''} onChange={(e) => setNumber2(e.target.value ? parseInt(e.target.value) : undefined)} />
+                <input type="text" className="input right" value={number3 ?? ''} onChange={(e) => setNumber3(e.target.value ? parseInt(e.target.value) : undefined)} />
+                <input type="text" className="input bottom" value={number4 ?? ''} onChange={(e) => setNumber4(e.target.value ? parseInt(e.target.value) : undefined)} />
                 <Button variant="contained" size="large" color="error" className="card-button solve-button" onClick={() => handleClick()} disabled={!isValidNumbers}>Solve!</Button>
                 <Button variant="text" size="large" className="card-button reset-button" onClick={() => handleReset()}>Reset</Button>
               </div>
               <div className="card-face card-back" aria-hidden="true">
+                <h1 className="title">24 Solver</h1>
                 <img src={cardBackSvg} alt="Card back" />
                 <div className="solution">
                   {solution === false && (
