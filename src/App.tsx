@@ -65,16 +65,25 @@ function solve(items: Item[], target: number): string | null {
 }
 
 function App() {
-  const [number1, setNumber1] = useState<number>()
-  const [number2, setNumber2] = useState<number>()
-  const [number3, setNumber3] = useState<number>()
-  const [number4, setNumber4] = useState<number>()
+  const [number1, setNumber1] = useState('')
+  const [number2, setNumber2] = useState('')
+  const [number3, setNumber3] = useState('')
+  const [number4, setNumber4] = useState('')
   const [solution, setSolution] = useState<string | null | false>(null)
   const [isFlipped, setIsFlipped] = useState(false)
 
-  const isValidNumbers = useMemo(() => {
-    return (number1 ?? 0) > 0 && (number2 ?? 0) > 0 && (number3 ?? 0) > 0 && (number4 ?? 0) > 0
+  const parsedNumbers = useMemo(() => {
+    return [number1, number2, number3, number4].map((value) => {
+      const trimmed = value.trim()
+      if (!trimmed) return null
+      const parsed = Number(trimmed)
+      return Number.isFinite(parsed) ? parsed : null
+    })
   }, [number1, number2, number3, number4])
+
+  const isValidNumbers = useMemo(() => {
+    return parsedNumbers.every((value) => value !== null && value > 0)
+  }, [parsedNumbers])
 
   useEffect(() => {
     setIsFlipped(false)
@@ -83,7 +92,7 @@ function App() {
   const handleClick = useCallback(() => {
     if (!isValidNumbers) return
 
-    const numbers = [number1!, number2!, number3!, number4!]
+    const numbers = parsedNumbers as number[]
     const target = 24
 
     const items: Item[] = numbers.map(n => ({
@@ -94,18 +103,18 @@ function App() {
     const solution = solve(items, target)
     setSolution(solution ? solution : false)
     setIsFlipped(true)
-  }, [number1, number2, number3, number4, isValidNumbers])
+  }, [isValidNumbers, parsedNumbers])
 
   const handleBackClick = useCallback(() => {
     setIsFlipped(false)
   }, [setIsFlipped])
 
   const handleReset = useCallback(() => {
-    setNumber1(undefined)
-    setNumber2(undefined)
-    setNumber3(undefined)
-    setNumber4(undefined)
-  }, [setNumber1, setNumber2, setNumber3, setNumber4])
+    setNumber1('')
+    setNumber2('')
+    setNumber3('')
+    setNumber4('')
+  }, [])
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -117,10 +126,38 @@ function App() {
               <div className="card-face card-front">
                 <h1 className="title">24 Solver</h1>
                 <img src={cardSvg} alt="Card front" />
-                <input type="text" className="input top" value={number1 ?? ''} onChange={(e) => setNumber1(e.target.value ? parseInt(e.target.value) : undefined)} />
-                <input type="text" className="input left" value={number2 ?? ''} onChange={(e) => setNumber2(e.target.value ? parseInt(e.target.value) : undefined)} />
-                <input type="text" className="input right" value={number3 ?? ''} onChange={(e) => setNumber3(e.target.value ? parseInt(e.target.value) : undefined)} />
-                <input type="text" className="input bottom" value={number4 ?? ''} onChange={(e) => setNumber4(e.target.value ? parseInt(e.target.value) : undefined)} />
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  className="input top"
+                  value={number1}
+                  onChange={(e) => setNumber1(e.target.value)}
+                />
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  className="input left"
+                  value={number2}
+                  onChange={(e) => setNumber2(e.target.value)}
+                />
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  className="input right"
+                  value={number3}
+                  onChange={(e) => setNumber3(e.target.value)}
+                />
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  className="input bottom"
+                  value={number4}
+                  onChange={(e) => setNumber4(e.target.value)}
+                />
                 <Button variant="contained" size="large" color="error" className="card-button solve-button" onClick={() => handleClick()} disabled={!isValidNumbers}>Solve!</Button>
                 <Button variant="text" size="large" className="card-button reset-button" onClick={() => handleReset()}>Reset</Button>
               </div>
