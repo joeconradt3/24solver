@@ -97,8 +97,8 @@
 
   <!-- White center square -->
   <rect
-    x="400" y="400"
-    width="200" height="200"
+    x="375" y="375"
+    width="250" height="250"
     class="white"
     stroke="#c21f3a"
     stroke-width="10"/>

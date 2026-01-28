@@ -101,3 +101,15 @@
 .solve-button {
   position: absolute !important;
 }
+
+@media (max-width: 768px) {
+  .input {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .input {
+    font-size: 3.2rem;
+  }
+}
