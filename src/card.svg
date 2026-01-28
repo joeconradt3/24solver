@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+
+  <!-- Colors -->
+  <defs>
+    <style>
+      .blue { fill: #0c3b78 }
+      .yellow { fill: #f2b705 }
+      .red { fill: #c21f3a }
+      .white { fill: #ffffff }
+    </style>
+  </defs>
+
+  <!-- Card base -->
+  <rect x="60" y="60" width="880" height="880" rx="60" class="blue"/>
+
+  <!-- Corner dots -->
+  <circle cx="115" cy="115" r="12" class="white"/>
+  <circle cx="885" cy="115" r="12" class="white"/>
+  <circle cx="115" cy="885" r="12" class="white"/>
+  <circle cx="885" cy="885" r="12" class="white"/>
+
+  <!-- Yellow circle -->
+  <circle cx="500" cy="500" r="360" class="yellow"/>
+
+  <!-- Solid red rays -->
+  <!-- Top-left -->
+  <polygon
+    points="500,500 220,320 220,200 340,200"
+    class="red"/>
+
+    <polygon
+    points="500,500 220,300 220,290"
+    class="white"/>
+
+    <polygon
+    points="500,500 220,270 220,260"
+    class="white"/>
+
+    <polygon
+    points="500,500 220,240 220,230"
+    class="white"/>
+
+    <polygon
+    points="500,500 220,205 220,200 225,200"
+    class="white"/>
+
+    <polygon
+    points="500,500 310,200 320,200"
+    class="white"/>
+
+    <polygon
+    points="500,500 290,200 280,200"
+    class="white"/>
+
+    <polygon
+    points="500,500 260,200 250,200"
+    class="white"/>
+
+    <!-- Top-right -->
+<polygon points="500,500 780,320 780,200 660,200" class="red"/>
+
+<polygon points="500,500 780,300 780,290" class="white"/>
+<polygon points="500,500 780,270 780,260" class="white"/>
+<polygon points="500,500 780,240 780,230" class="white"/>
+<polygon points="500,500 780,205 780,200 775,200" class="white"/>
+
+<polygon points="500,500 690,200 680,200" class="white"/>
+<polygon points="500,500 710,200 720,200" class="white"/>
+<polygon points="500,500 740,200 750,200" class="white"/>
+
+
+   <!-- Bottom-left -->
+<polygon points="500,500 220,680 220,800 340,800" class="red"/>
+
+<polygon points="500,500 220,700 220,710" class="white"/>
+<polygon points="500,500 220,730 220,740" class="white"/>
+<polygon points="500,500 220,760 220,770" class="white"/>
+<polygon points="500,500 220,795 220,800 225,800" class="white"/>
+
+<polygon points="500,500 310,800 320,800" class="white"/>
+<polygon points="500,500 290,800 280,800" class="white"/>
+<polygon points="500,500 260,800 250,800" class="white"/>
+
+
+    <!-- Bottom-right -->
+<polygon points="500,500 780,680 780,800 660,800" class="red"/>
+
+<polygon points="500,500 780,700 780,710" class="white"/>
+<polygon points="500,500 780,730 780,740" class="white"/>
+<polygon points="500,500 780,760 780,770" class="white"/>
+<polygon points="500,500 780,795 780,800 775,800" class="white"/>
+
+<polygon points="500,500 690,800 680,800" class="white"/>
+<polygon points="500,500 710,800 720,800" class="white"/>
+<polygon points="500,500 740,800 750,800" class="white"/>
+
+
+  <!-- White center square -->
+  <rect
+    x="400" y="400"
+    width="200" height="200"
+    class="white"
+    stroke="#c21f3a"
+    stroke-width="10"/>
+
+</svg>
